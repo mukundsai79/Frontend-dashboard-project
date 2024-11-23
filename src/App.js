@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-//App js file
-=======
 import "./App.css";
 
 function App() {
@@ -8,4 +5,3 @@ function App() {
 }
 
 export default App;
->>>>>>> f663161 (Initial folders commit)
