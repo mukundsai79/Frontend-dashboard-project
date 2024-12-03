@@ -5,6 +5,7 @@ import ProfileInfo from "./components/ProfileInfo";
 import FollowersList from "./components/FollowersList";
 import RepositoriesList from "./components/RepositoriesList";
 import TabNavigationComponent from "./components/TabNavigationComponent";
+import LeftNavBar from "./components/leftNavBar";
 import "./App.css";
 
 function App() {
@@ -24,12 +25,26 @@ function App() {
   return (
     <>
       <div className="heading">
-        <img
-          src={`${process.env.PUBLIC_URL}/github_logo.png`}
-          alt="GitHub Logo"
-          className="logo"
-        />
-        <span>GitHub API Visualizations</span>
+        <div className="heading-left">
+          <img
+            src={`${process.env.PUBLIC_URL}/github_logo.png`}
+            alt="GitHub Logo"
+            className="logo"
+          />
+          <span>GitHub API Visualizations</span>
+        </div>
+        <div className="search-theme-container">
+          <SearchBar
+            username={username}
+            setUsername={setUsername}
+            setProfile={setProfile}
+            setFollowers={setFollowers}
+            setRepo={setRepo}
+            setLoading={setLoading}
+            loading={loading}
+          />
+          <ThemeToggle />
+        </div>
       </div>
 
       <div className="container">
@@ -47,17 +62,20 @@ function App() {
         </div>
 
         {profile?.login && (
-          <div style={{ marginTop: 30 }}>
-            <ProfileInfo profile={profile} />
+          <div className="content-wrapper">
+            <LeftNavBar profile={profile} />
+            <div style={{ marginTop: 30 }} className="profileTable">
+              <ProfileInfo profile={profile} />
 
-            <TabNavigationComponent
-              tabs={tabs}
-              selectedIndex={selectedIndex}
-              setSelectedIndex={setSelectedIndex}
-            />
+              <TabNavigationComponent
+                tabs={tabs}
+                selectedIndex={selectedIndex}
+                setSelectedIndex={setSelectedIndex}
+              />
 
-            {selectedIndex === 0 && <FollowersList followers={followers} />}
-            {selectedIndex === 1 && <RepositoriesList repo={repo} />}
+              {selectedIndex === 0 && <FollowersList followers={followers} />}
+              {selectedIndex === 1 && <RepositoriesList repo={repo} />}
+            </div>
           </div>
         )}
       </div>
