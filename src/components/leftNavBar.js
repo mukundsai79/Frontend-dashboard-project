@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Avatar } from "evergreen-ui";
-import "./leftNavBar.css"
+import "./leftNavBar.css";
+import axios from "axios";
 
 const LeftNavBar = ({ profile }) => {
   const [detailedProfile, setDetailedProfile] = useState(null);
 
   const fetchDetailedProfile = async (username) => {
     try {
-      const res = await fetch(`https://api.github.com/users/${username}`);
-      const data = await res.json();
+      const response = await axios.get(`https://api.github.com/users/${username}`);
+      const data = await response.json();
       setDetailedProfile(data);
     } catch (e) {
       console.error("Error fetching detailed profile:", e);

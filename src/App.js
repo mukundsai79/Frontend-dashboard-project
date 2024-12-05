@@ -7,6 +7,7 @@ import RepositoriesList from "./components/RepositoriesList";
 import TabNavigationComponent from "./components/TabNavigationComponent";
 import LeftNavBar from "./components/leftNavBar";
 import "./App.css";
+import ChartDisplay from "./components/ChartDisplay";
 
 function App() {
   const [username, setUsername] = useState("");
@@ -48,19 +49,6 @@ function App() {
       </div>
 
       <div className="container">
-        <div className="search-theme-container">
-          <SearchBar
-            username={username}
-            setUsername={setUsername}
-            setProfile={setProfile}
-            setFollowers={setFollowers}
-            setRepo={setRepo}
-            setLoading={setLoading}
-            loading={loading}
-          />
-          <ThemeToggle />
-        </div>
-
         {profile?.login && (
           <div className="content-wrapper">
             <LeftNavBar profile={profile} />
@@ -75,6 +63,9 @@ function App() {
 
               {selectedIndex === 0 && <FollowersList followers={followers} />}
               {selectedIndex === 1 && <RepositoriesList repo={repo} />}
+            </div>
+            <div>
+              <ChartDisplay username={username} />
             </div>
           </div>
         )}
