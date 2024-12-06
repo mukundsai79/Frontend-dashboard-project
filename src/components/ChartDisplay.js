@@ -3,49 +3,34 @@ import { Pie } from "react-chartjs-2";
 import 'chart.js/auto';
 import axios from "axios";
 
-//THIS NEEDS MORE WORK -- NOT FUNCTIONING CORRECTLY
-//also updates as user type instead of when search is pressed
+//THIS NEEDS MORE WORK -- STYLING
 
-const ChartDisplay = ({ username }) => {
+
+const ChartDisplay = ({ profile }) => {
   const [chartData, setChartData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (!profile?.login) return;
+
     const fetchLangs = async ()  => {
         try{
             setLoading(true);
             setError(false);
 
-            const response = await axios.get(`https://api.github.com/users/${username}/repos`);
+            const response = await axios.get(`https://api.github.com/users/${profile.login}/repos`);
             const repos = response.data;
 
-            const langCount = repos.map
-/*
-            const langCount  = repos.reduce((acc, repo) => { //acc (accumulator) to keep sum of languages
-                if (repo.language) {
-                    acc[repo.language] = (acc[repo.language] || 0) + 1;
+            const langCount = {}; //create object to store number of times language appears
+            repos.forEach(repo => {
+                if (repo.language && !langCount[repo.language]) {
+                    langCount[repo.language] =1;
                 }
-                return acc;
-                
-            }, {}); */
-
-            /*
-            const langCount = {}; //this will count the number of languages in each repo and total them
-            await Promise.all(
-                repos.map(async (repo) => {
-                    if (repo.languages_url) {
-                        const langResp = await axios.get(repo.languages_url);
-                        const languages = langResp.data;
-
-                        Object.keys(languages).forEach((language) => {
-                            langCount[language] = (langCount[language] || 0) + 1;
-                        });      
-                    } 
-                }) 
-            
-            
-            ); */
+                else if (langCount[repo.language]) {
+                    langCount[repo.language] +=1;
+                }
+            }) 
 
             const labels = Object.keys(langCount);
             const data = Object.values(langCount);
@@ -66,10 +51,9 @@ const ChartDisplay = ({ username }) => {
             setLoading(false);
         }
     };
-    if (username) {
         fetchLangs();
-    }
-  }, [username]);
+  }, [profile]);
+
   if (loading) return <p>Loading chart...</p>;
   if (error) return <p>{error}</p>;
 

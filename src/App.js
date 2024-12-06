@@ -8,6 +8,7 @@ import TabNavigationComponent from "./components/TabNavigationComponent";
 import LeftNavBar from "./components/leftNavBar";
 import "./App.css";
 import ChartDisplay from "./components/ChartDisplay";
+import TopStars from "./components/TopStars";
 
 function App() {
   const [username, setUsername] = useState("");
@@ -64,9 +65,8 @@ function App() {
               {selectedIndex === 0 && <FollowersList followers={followers} />}
               {selectedIndex === 1 && <RepositoriesList repo={repo} />}
             </div>
-            <div>
-              <ChartDisplay username={username} />
-            </div>
+            <ChartDisplay profile={profile} />
+            <TopStars profile={profile} />
           </div>
         )}
       </div>

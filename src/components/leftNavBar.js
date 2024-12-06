@@ -8,7 +8,7 @@ const LeftNavBar = ({ profile }) => {
 
   const fetchDetailedProfile = async (username) => {
     try {
-      const response = await axios.get(`https://api.github.com/users/${username}`);
+      const response = await fetch(`https://api.github.com/users/${username}`);
       const data = await response.json();
       setDetailedProfile(data);
     } catch (e) {
