@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import "chart.js/auto";
+import { backgroundColors } from "../utils/chartColors";
 import axios from "axios";
-
-//Not fully functional - not displaying the data
 
 const TopStars = ({ profile }) => {
   const [chartData, setChartData] = useState(null);
@@ -27,22 +26,25 @@ const TopStars = ({ profile }) => {
           .filter((repos) => repos.stargazers_count > 0) //filter out repos that have no stars
           .sort(function (a, b) {
             //sort in descending order
-            return b - a;
+            return b.stargazers_count - a.stargazers_count;
           })
-          .slice(0, 5); //get top 5 highest starred repos
+          .slice(0, 5); //get top 5
 
         const labels = topStars.map((repo) => repo.name);
         const numStars = topStars.map((repo) => repo.stargazers_count);
 
-        setChartData({
-          labels,
-          datasets: [
-            {
-              label: "Size of Repos",
-              numStars,
-            },
-          ],
-        });
+        if (numStars.length > 0) {
+          setChartData({
+            labels,
+            datasets: [
+              {
+                label: "Number of Stars",
+                data: numStars,
+                backgroundColor: backgroundColors,
+              },
+            ],
+          });
+        }
       } catch (err) {
         console.error("Failed to get data");
       } finally {
@@ -56,12 +58,12 @@ const TopStars = ({ profile }) => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div>
+    <div style={{ width: "400px", height: "400px", margin: "auto" }}>
       {chartData ? (
         <Bar
           data={chartData}
           options={{
-            responsive: true,
+            //responsive: true,
             plugins: {
               legend: { position: "top" },
               title: {
