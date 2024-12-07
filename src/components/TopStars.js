@@ -3,6 +3,7 @@ import { Bar } from "react-chartjs-2";
 import "chart.js/auto";
 import { backgroundColors } from "../utils/chartColors";
 import axios from "axios";
+import { getTopStarred } from "../utils/getTopStarred";
 
 const TopStars = ({ profile }) => {
   const [chartData, setChartData] = useState(null);
@@ -22,13 +23,7 @@ const TopStars = ({ profile }) => {
         );
         const repos = response.data;
 
-        const topStars = repos
-          .filter((repos) => repos.stargazers_count > 0) //filter out repos that have no stars
-          .sort(function (a, b) {
-            //sort in descending order
-            return b.stargazers_count - a.stargazers_count;
-          })
-          .slice(0, 5); //get top 5
+        const topStars = getTopStarred(repos);
 
         const labels = topStars.map((repo) => repo.name);
         const numStars = topStars.map((repo) => repo.stargazers_count);
