@@ -3,7 +3,9 @@ import SearchBar from "./components/SearchBar";
 import ThemeToggle from "./components/ThemeToggle";
 import ProfileInfo from "./components/ProfileInfo";
 import FollowersList from "./components/FollowersList";
+import FollowingList from "./components/FollowingList";
 import RepositoriesList from "./components/RepositoriesList";
+import ForksList from "./components/ForksList";
 import TabNavigationComponent from "./components/TabNavigationComponent";
 import LeftNavBar from "./components/leftNavBar";
 import "./App.css";
@@ -14,11 +16,12 @@ function App() {
   const [username, setUsername] = useState("");
   const [profile, setProfile] = useState({});
   const [followers, setFollowers] = useState([]);
+  const [following, setFollowing] = useState([]);
   const [repo, setRepo] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const tabs = useMemo(
-    () => ["Followers", "Repositories", "Following", "Forks"],
+    () => ["Followers", "Repositories", "Following", "Forks", "Charts"],
     []
   );
 
@@ -64,9 +67,15 @@ function App() {
 
               {selectedIndex === 0 && <FollowersList followers={followers} />}
               {selectedIndex === 1 && <RepositoriesList repo={repo} />}
+              {selectedIndex === 2 && <FollowingList following={following} />}
+              {selectedIndex === 3 && <ForksList profile={profile} />}
+              {selectedIndex === 4 && (
+                <div>
+                  <ChartDisplay profile={profile} />
+                  <TopStars profile={profile} />
+                </div>
+              )}
             </div>
-            <ChartDisplay profile={profile} />
-            <TopStars profile={profile} />
           </div>
         )}
       </div>
