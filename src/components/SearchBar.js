@@ -8,6 +8,7 @@ const SearchBar = ({
   setFollowers,
   setRepo,
   setLoading,
+  token,
   loading,
 }) => {
   const searchProfile = async () => {
@@ -18,9 +19,10 @@ const SearchBar = ({
       );
       const data = await res?.json();
       if (data?.items && data.items.length > 0) {
-        setProfile(data.items[0]);
-        getFollowers(data.items[0]);
-        getRepo(data.items[0]);
+        const userProfile = data.items[0];
+        setProfile(userProfile);
+        getFollowers(userProfile, token);
+        getRepo(userProfile, token);
       }
     } catch (e) {
       console.error("Error fetching profile:", e);
@@ -29,9 +31,13 @@ const SearchBar = ({
     }
   };
 
-  const getFollowers = async (profile) => {
+  const getFollowers = async (profile, token) => {
     try {
-      const res = await fetch(profile.followers_url);
+      const res = await fetch(profile.followers_url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await res?.json();
       setFollowers(data);
     } catch (e) {
@@ -39,9 +45,13 @@ const SearchBar = ({
     }
   };
 
-  const getRepo = async (profile) => {
+  const getRepo = async (profile, token) => {
     try {
-      const res = await fetch(profile.repos_url);
+      const res = await fetch(profile.repos_url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await res?.json();
       setRepo(data);
     } catch (e) {

@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Avatar } from "evergreen-ui";
 import "./leftNavBar.css";
 
-const LeftNavBar = ({ profile }) => {
+const LeftNavBar = ({ profile, token }) => {
   const [detailedProfile, setDetailedProfile] = useState(null);
   const [totalForks, setTotalForks] = useState(null);
 
-  const fetchDetailedProfile = async (username) => {
+  const fetchDetailedProfile = async (username, token) => {
     try {
-      const response = await fetch(`https://api.github.com/users/${username}`);
+      const response = await fetch(`https://api.github.com/users/${username}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await response.json();
       setDetailedProfile(data);
     } catch (e) {
@@ -16,18 +20,21 @@ const LeftNavBar = ({ profile }) => {
     }
   };
 
-  const countForks = async (username) => {
+  const countForks = async (username, token) => {
     try {
       const response = await fetch(
-        `https://api.github.com/users/${username}/repos`
+        `https://api.github.com/users/${username}/repos`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       const repos = await response.json();
-
       let forkCount = 0;
       repos.forEach((repo) => {
         forkCount += repo.forks_count;
       });
-
       setTotalForks(forkCount);
     } catch (e) {
       console.error("Failed to fetch fork data", e);
@@ -36,10 +43,10 @@ const LeftNavBar = ({ profile }) => {
 
   useEffect(() => {
     if (profile?.login) {
-      fetchDetailedProfile(profile.login);
-      countForks(profile.login);
+      fetchDetailedProfile(profile.login, token);
+      countForks(profile.login, token);
     }
-  }, [profile]);
+  }, [profile, token]);
 
   return (
     <div style={{ marginTop: 30 }} className="leftNavBar">
@@ -67,7 +74,7 @@ const LeftNavBar = ({ profile }) => {
           </ul>
         </>
       ) : (
-        <p>Loading profile..</p>
+        <p>Loading profile...</p>
       )}
     </div>
   );

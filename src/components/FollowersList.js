@@ -2,6 +2,10 @@ import React from "react";
 import { Table, Avatar } from "evergreen-ui";
 
 const FollowersList = ({ followers }) => {
+  if (!Array.isArray(followers)) {
+    return <p>No followers to display or data could not be fetched.</p>;
+  }
+
   return (
     <div>
       <h2>Followers</h2>
@@ -12,7 +16,7 @@ const FollowersList = ({ followers }) => {
           <Table.TextHeaderCell>Visit</Table.TextHeaderCell>
         </Table.Head>
         <Table.Body height="auto">
-          {followers?.map((follower) => (
+          {followers.map((follower) => (
             <Table.Row key={follower.id}>
               <Table.TextCell>
                 <Avatar
