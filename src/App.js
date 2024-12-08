@@ -11,6 +11,7 @@ import LeftNavBar from "./components/leftNavBar";
 import "./App.css";
 import ChartDisplay from "./components/ChartDisplay";
 import TopStars from "./components/TopStars";
+import ScatterDisplay from "./components/ScatterDisplay";
 
 function App() {
   const [username, setUsername] = useState("");
@@ -48,7 +49,6 @@ function App() {
             setLoading={setLoading}
             loading={loading}
           />
-          <ThemeToggle />
         </div>
       </div>
 
@@ -57,8 +57,6 @@ function App() {
           <div className="content-wrapper">
             <LeftNavBar profile={profile} />
             <div style={{ marginTop: 30 }} className="profileTable">
-              <ProfileInfo profile={profile} />
-
               <TabNavigationComponent
                 tabs={tabs}
                 selectedIndex={selectedIndex}
@@ -71,8 +69,12 @@ function App() {
               {selectedIndex === 3 && <ForksList profile={profile} />}
               {selectedIndex === 4 && (
                 <div>
-                  <ChartDisplay profile={profile} />
-                  <TopStars profile={profile} />
+                  <h2>Charts</h2>
+                  <div style={{ marginTop: 30 }} className="chartsDisplay">
+                    <ChartDisplay profile={profile} />
+                    <TopStars profile={profile} />
+                    <ScatterDisplay profile={profile} />
+                  </div>
                 </div>
               )}
             </div>

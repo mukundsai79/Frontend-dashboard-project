@@ -229,6 +229,24 @@ a:hover {
   text-decoration: none;
 }
 
+.chartsDisplay {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 50px;
+}
+
+
+.chartsDisplay > div {
+  flex: 1;
+  min-width: 300px;
+  max-width: 33%;
+  height: 400px;
+  box-sizing: border-box;
+  aspect-ratio: 1;
+}
+
+
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
@@ -262,6 +280,11 @@ a:hover {
   .Tab {
     margin: 5px 0;
   }
+
+  .chartsDisplay > div {
+    max-width: 100%;
+  }
+
 }
 
 @media (max-width: 480px) {

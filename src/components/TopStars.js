@@ -40,6 +40,9 @@ const TopStars = ({ profile }) => {
             ],
           });
         }
+        else {
+          setChartData(null);
+        }
       } catch (err) {
         console.error("Failed to get data");
       } finally {
@@ -53,12 +56,13 @@ const TopStars = ({ profile }) => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div style={{ width: "400px", height: "400px", margin: "auto" }}>
+    <div style={{ margin: "auto" }}>
       {chartData ? (
         <Bar
           data={chartData}
           options={{
-            //responsive: true,
+            responsive: true,
+            maintainAspectRatio: false,
             plugins: {
               legend: { position: "top" },
               title: {
@@ -69,7 +73,7 @@ const TopStars = ({ profile }) => {
           }}
         />
       ) : (
-        <div>No data available.</div>
+        <div>No starred repositories to display.</div>
       )}
     </div>
   );

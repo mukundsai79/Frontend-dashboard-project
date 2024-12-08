@@ -55,12 +55,13 @@ const ChartDisplay = ({ profile }) => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div style={{ width: "400px", height: "400px", margin: "auto" }}>
+    <div style={{ margin: "auto" }}>
       {chartData ? (
         <Pie
           data={chartData}
           options={{
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
               legend: { position: "top" },
               title: {
