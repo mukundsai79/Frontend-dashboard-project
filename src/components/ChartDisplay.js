@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
-//import { Colors } from "chart.js";
-//Chart.register(Colors);
 import { backgroundColors } from "../utils/chartColors";
 import "chart.js/auto";
 import axios from "axios";
 import { countLangs } from "../utils/countLangs";
-
-//THIS NEEDS MORE WORK -- STYLING
 
 const ChartDisplay = ({ profile }) => {
   const [chartData, setChartData] = useState(null);

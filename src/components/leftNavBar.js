@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Avatar } from "evergreen-ui";
 import "./leftNavBar.css";
-import axios from "axios";
 
 const LeftNavBar = ({ profile }) => {
   const [detailedProfile, setDetailedProfile] = useState(null);

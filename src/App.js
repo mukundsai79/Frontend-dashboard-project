@@ -1,7 +1,5 @@
 import React, { useState, useMemo } from "react";
 import SearchBar from "./components/SearchBar";
-import ThemeToggle from "./components/ThemeToggle";
-import ProfileInfo from "./components/ProfileInfo";
 import FollowersList from "./components/FollowersList";
 import FollowingList from "./components/FollowingList";
 import RepositoriesList from "./components/RepositoriesList";
@@ -17,7 +15,7 @@ function App() {
   const [username, setUsername] = useState("");
   const [profile, setProfile] = useState({});
   const [followers, setFollowers] = useState([]);
-  const [following, setFollowing] = useState([]);
+  const [following] = useState([]);
   const [repo, setRepo] = useState([]);
   const [loading, setLoading] = useState(false);
 
