@@ -1,15 +1,15 @@
 import React, { useState, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
+import LeftNavBar from "./components/leftNavBar";
+import ChartDisplay from "./components/ChartDisplay";
+import TopStars from "./components/TopStars";
+import ScatterDisplay from "./components/ScatterDisplay";
 import SearchBar from "./components/SearchBar";
 import FollowersList from "./components/FollowersList";
 import FollowingList from "./components/FollowingList";
 import RepositoriesList from "./components/RepositoriesList";
 import ForksList from "./components/ForksList";
 import TabNavigationComponent from "./components/TabNavigationComponent";
-import LeftNavBar from "./components/leftNavBar";
-import ChartDisplay from "./components/ChartDisplay";
-import TopStars from "./components/TopStars";
-import ScatterDisplay from "./components/ScatterDisplay";
 import "./App.css";
 
 function App() {
