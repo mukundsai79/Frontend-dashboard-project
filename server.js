@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const axios = require("axios");
 const cors = require("cors");
@@ -13,8 +14,8 @@ app.post("/getAccessToken", async (req, res) => {
     const response = await axios.post(
       "https://github.com/login/oauth/access_token",
       {
-        client_id: "Ov23lif5yameOOEsHPcy",
-        client_secret: "1f1ec928b73328053558c5d1772cd918a353f74d",
+        client_id: process.env.CLIENT_ID,
+        client_secret: process.env.CLIENT_SECRET,
         code,
       },
       {
